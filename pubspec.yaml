@@ -38,6 +38,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   date_time_picker: ^2.1.0
   flutter_floating_bottom_bar: ^1.1.0
+  calendar_timeline: ^1.0.5
+  carousel_slider: ^4.1.1
+  splashscreen: ^1.2.0
 
 dev_dependencies:
   flutter_test:
@@ -66,6 +69,7 @@ flutter:
     - assets/gifs/
     - assets/icons/
     - assets/images/
+    - assets/onboarding/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -1,3 +1,4 @@
+import 'package:at_events/ui/onboarding.dart';
 import 'package:at_events/ui/views/explorer/explorer_view.dart';
 import 'package:at_events/ui/views/shared/search/search_view.dart';
 import 'package:at_events/ui/views/signup/signup_view.dart';
@@ -18,11 +19,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      // theme: ThemeData(
-      //   useMaterial3: true,
-      //   primarySwatch: Colors.blue,
-      // ),
+      /* theme: ThemeData(
+        useMaterial3: true,
+        primarySwatch: Colors.blue,
+      ),*/
       initialRoute: 'login_view',
       routes: {
         'login_view': (_) => const LoginView(),
@@ -32,6 +34,7 @@ class MyApp extends StatelessWidget {
         'form_view': (_) => const EventFormView(),
         'explore_view': (_) => const ExploreView(),
         'search_view': (_) => const SearchView(),
+        'onboarding': (_) => ViewOnboarding(),
       },
     );
   }

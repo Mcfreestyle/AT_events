@@ -13,7 +13,7 @@ class ExploreView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(65),
+        preferredSize: const Size.fromHeight(55),
         child: AppBar(
           backgroundColor: Colors.white,
           iconTheme: const IconThemeData(color: Colors.black),
@@ -21,8 +21,9 @@ class ExploreView extends StatelessWidget {
             'Explore',
             style: TextStyle(
               color: Colors.black,
-              fontSize: 34.0,
-              letterSpacing: 3,
+              fontWeight: FontWeight.bold, fontSize: 25,
+              //fontSize: 34.0,
+              //letterSpacing: 3,
             ),
           ),
           actions: [

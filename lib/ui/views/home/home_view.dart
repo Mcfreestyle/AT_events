@@ -10,12 +10,11 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 1,
         title: const Text(
           'Home',
           style: TextStyle(
-            color: Colors.black,
-            fontSize: 30,
-          ),
+              color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.white,
         actions: [
@@ -28,7 +27,7 @@ class HomeView extends StatelessWidget {
             child: const Icon(Icons.search),
           ),
           const SizedBox(
-            width: 10,
+            width: 5,
           ),
           FloatingActionButton(
             heroTag: 'btn2',
@@ -36,11 +35,15 @@ class HomeView extends StatelessWidget {
               Navigator.pushNamed(context, 'form_view');
             },
             backgroundColor: MyColor.primary,
+            mini: true,
             child: const Icon(
               Icons.add,
-              size: 50,
+              size: 30,
             ),
           ),
+          SizedBox(
+            width: 10,
+          )
         ],
       ),
       body: SingleChildScrollView(
