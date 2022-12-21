@@ -8,11 +8,12 @@ class DetailsEvent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.black),
         elevation: 1,
         backgroundColor: Colors.white,
       ),
       body: ListView(
-        children: [
+        children: const [
           DetailEventWidget(
             imageEvent:
                 'https://cdn.pixabay.com/photo/2022/10/17/15/02/photography-7527978_960_720.jpg',

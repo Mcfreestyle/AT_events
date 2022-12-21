@@ -1,4 +1,7 @@
+import 'package:at_events/ui/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
+
+import '../../../widgets/textfield_widget.dart';
 
 class PerfilScreen extends StatelessWidget {
   const PerfilScreen({super.key});
@@ -6,85 +9,84 @@ class PerfilScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 206, 196, 196),
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(50),
-        child: AppBar(
-          backgroundColor: Colors.white,
-          iconTheme: const IconThemeData(color: Colors.black),
-          title: const Text(
-            'Editar Perfil',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 30.0,
-              letterSpacing: 2,
-            ),
-          ),
-        ),        
+      backgroundColor: const Color(0xFFFFFFFF),
+      //backgroundColor: Color.fromARGB(255, 206, 196, 196),
+      appBar: AppBar(
+        elevation: 1,
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.black),
+        title: const Text(
+          'Editar perfil',
+          style: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 25),
+        ),
       ),
-      body: Column(
-        children: const [
-          TextField(
-            decoration: InputDecoration(
-              labelText: 'Nombre',
-              floatingLabelBehavior: FloatingLabelBehavior.always,
-              hintText: 'Escribe tu nombre',
+
+      body: ListView(
+        children: [
+          Container(
+            margin: new EdgeInsets.symmetric(horizontal: 25.0),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 40,
+                ),
+                TextFieldWidget(
+                  keyboardType: TextInputType.text,
+                  hintText: 'Nombre',
+                ),
+                SizedBox(
+                  height: 14,
+                ),
+                TextFieldWidget(
+                  keyboardType: TextInputType.text,
+                  hintText: 'Apellidos',
+                ),
+                SizedBox(
+                  height: 14,
+                ),
+                TextFieldWidget(
+                  keyboardType: TextInputType.emailAddress,
+                  hintText: 'Gmail',
+                ),
+                SizedBox(
+                  height: 14,
+                ),
+                TextFieldWidget(
+                  keyboardType: TextInputType.number,
+                  hintText: 'Celular',
+                ),
+                SizedBox(
+                  height: 14,
+                ),
+                TextFieldWidget(
+                  keyboardType: TextInputType.text,
+                  hintText: 'Distrito',
+                ),
+
+                const SizedBox(
+                  height: 100,
+                ),
+                ////////////////////////
+                SizedBox(
+                  width: double.infinity,
+                  height: 40,
+                  child: ButtonWidget(
+                    title: 'Guardar Cambios',
+                    type: 'primary',
+                    function: () {
+                      /*  Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MyNavigator()),
+                      );*/
+                      //  Navigator.pushReplacementNamed(context, 'perfil_view');
+                    },
+                  ),
+                ),
+              ],
             ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          TextField(
-            decoration: InputDecoration(
-              labelText: 'Apellidos',
-              floatingLabelBehavior: FloatingLabelBehavior.always,
-              hintText: 'Escribe tu Apellido',
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          TextField(
-            decoration: InputDecoration(
-              labelText: 'Correo',
-              floatingLabelBehavior: FloatingLabelBehavior.always,
-              hintText: 'Example@gmail.com',
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          TextField(
-            decoration: InputDecoration(
-              labelText: 'Celular',
-              floatingLabelBehavior: FloatingLabelBehavior.always,
-              hintText: 'Escribe tu numero',
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          TextField(
-            decoration: InputDecoration(
-              labelText: 'Distrito',
-              floatingLabelBehavior: FloatingLabelBehavior.always,
-              hintText: 'Escribe tu distrito',
-            ),
-          ),
-          TextField(
-            decoration: InputDecoration(
-              labelText: 'Contraseña',
-              floatingLabelBehavior: FloatingLabelBehavior.always,
-              hintText: '',
-            ),
-          ),
-          TextField(
-            decoration: InputDecoration(
-              labelText: 'Confirmar contraseña',
-              floatingLabelBehavior: FloatingLabelBehavior.always,
-              hintText: '',
-            ),
-          ),
+          )
         ],
       ),
     );

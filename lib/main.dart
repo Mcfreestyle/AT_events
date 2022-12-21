@@ -1,5 +1,6 @@
 import 'package:at_events/ui/views/onboarding/onboarding.dart';
 import 'package:at_events/ui/views/explorer/explorer_view.dart';
+import 'package:at_events/ui/views/profile/profile_view.dart';
 import 'package:at_events/ui/views/shared/search/search_view.dart';
 import 'package:at_events/ui/views/signup/signup_view.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,8 @@ class MyApp extends StatelessWidget {
         'form_view': (_) => const EventFormView(),
         'explore_view': (_) => const ExploreView(),
         'search_view': (_) => const SearchView(),
-        'onboarding_view': (_) => OnboardingView(),
+        'onboarding_view': (_) => const OnboardingView(),
+        'perfil_view': (_) => const ProfileView(),
       },
     );
   }

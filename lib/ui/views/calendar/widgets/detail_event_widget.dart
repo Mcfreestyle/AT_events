@@ -1,3 +1,4 @@
+import 'package:at_events/ui/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class DetailEventWidget extends StatelessWidget {
@@ -145,7 +146,7 @@ class DetailEventWidget extends StatelessWidget {
                         height: 30,
                         width: 140,
                         child: MaterialButton(
-                          color: Color(0xFFFF3265),
+                          color: MyColor.primary,
                           onPressed: () {},
                           child: Row(
                             children: [
@@ -166,7 +167,7 @@ class DetailEventWidget extends StatelessWidget {
                         height: 30,
                         width: 120,
                         child: MaterialButton(
-                          color: Color(0xFFFF3265),
+                          color: MyColor.primary,
                           onPressed: () {},
                           child: Row(
                             children: const [

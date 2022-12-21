@@ -1,4 +1,5 @@
 import 'package:at_events/ui/views/calendar/calendar_view.dart';
+import 'package:at_events/ui/views/profile/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
@@ -23,7 +24,7 @@ class _MyNavigatorState extends State<MyNavigator>
     HomeView(),
     EventCalendarView(),
     ExploreView(),
-    HomeView(),
+    ProfileView(),
   ];
 
   @override
