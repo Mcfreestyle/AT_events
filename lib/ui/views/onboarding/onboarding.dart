@@ -1,5 +1,6 @@
 import 'package:at_events/ui/theme/colors.dart';
 import 'package:at_events/ui/views/login/login_view.dart';
+import 'package:at_events/ui/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -11,7 +12,7 @@ final List<String> imgList = [
 
 final themeMode = ValueNotifier(2);
 
-class ViewOnboarding extends StatelessWidget {
+class OnboardingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
@@ -97,15 +98,10 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
             MaterialButton(
               minWidth: 160.0,
               height: 40.0,
-              /*onPressed: () {
-                Navigator.of(context).pushNamed('login_view');
-                //  Navigator.pushNamed(context, 'login_view');
-              },*/
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => LoginView()));
-
-                // Navigator.pushReplacementNamed(context, 'login_view');
+                //  Navigator.pushNamed(context, 'login_view');
               },
               color: MyColor.primary,
               shape: RoundedRectangleBorder(

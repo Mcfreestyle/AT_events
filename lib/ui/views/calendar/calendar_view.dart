@@ -45,8 +45,8 @@ class _EventCalendarView extends State<EventCalendarView> {
           ],
         ),
         floatingActionButton: SizedBox(
-          height: 40,
-          width: 40,
+          height: 150,
+          width: 45,
           child: FloatingActionButton(
             backgroundColor: MyColor.primary,
             onPressed: () => setState(() => _resetSelectedDate()),
@@ -56,10 +56,33 @@ class _EventCalendarView extends State<EventCalendarView> {
         body: ListView(
           children: [
             Container(
+              padding: const EdgeInsets.symmetric(vertical: 12.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                //mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  CalendarTimeline(
+                  Container(
+                    child: CalendarTimeline(
+                      showYears: false,
+                      initialDate: _selectedDate,
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime.now().add(Duration(days: 365 * 4)),
+                      onDateSelected: (date) => setState(
+                        () => _selectedDate = date,
+                      ),
+                      leftMargin: 15,
+                      monthColor: Colors.black,
+                      dayColor: Colors.black,
+                      dayNameColor: Colors.white,
+                      activeDayColor: Colors.white,
+                      activeBackgroundDayColor: MyColor.primary,
+                      dotsColor: Color(0xFF333A47),
+                      selectableDayPredicate: (date) => date.day != 23,
+                      locale: 'es',
+                    ),
+                  ),
+
+                  /* CalendarTimeline(
                     showYears: false,
                     initialDate: _selectedDate,
                     firstDate: DateTime.now(),
@@ -76,7 +99,8 @@ class _EventCalendarView extends State<EventCalendarView> {
                     dotsColor: Color(0xFF333A47),
                     selectableDayPredicate: (date) => date.day != 23,
                     locale: 'es',
-                  ),
+                  ),*/
+                  /////
                   /*  Container(
                     height: 120,
                     child: //calendario

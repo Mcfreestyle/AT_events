@@ -1,3 +1,37 @@
+import 'package:at_events/ui/views/calendar/widgets/detail_event_widget.dart';
+import 'package:flutter/material.dart';
+
+class DetailsEvent extends StatelessWidget {
+  const DetailsEvent({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 1,
+        backgroundColor: Colors.white,
+      ),
+      body: ListView(
+        children: [
+          DetailEventWidget(
+            imageEvent:
+                'https://cdn.pixabay.com/photo/2022/10/17/15/02/photography-7527978_960_720.jpg',
+            titleEvent: 'FOTOS AL AIRE LIBRE',
+            fechaEvent: ' Martes 2 de Diciembre',
+            ubicacionEvent: 'Ubicacion',
+            descriptionEvent:
+                'To switch to a new route, use the Navigator.push() method. The push() method adds a Route to the stack of routes managed by the Navigator. Where does the Route come from? You can create your own, or use a MaterialPageRoute, which is useful because it transitions to the new route using a platform-specific animation.',
+            nameBussinesEvent: 'Empresa Sac',
+            numberBussinesEvent: '912345678',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+/*
 import 'package:flutter/material.dart';
 
 class DetailsEvent extends StatelessWidget {
@@ -178,3 +212,5 @@ class DetailsEvent extends StatelessWidget {
     );
   }
 }
+
+ */
