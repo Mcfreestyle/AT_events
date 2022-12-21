@@ -1,3 +1,4 @@
+import 'package:at_events/ui/views/calendar/calendar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
@@ -18,9 +19,9 @@ class _MyNavigatorState extends State<MyNavigator>
   late int currentPage;
   late TabController tabController;
 
-  static const List<Widget> _widgetOptions = <Widget>[
+  static List<Widget> _widgetOptions = <Widget>[
     HomeView(),
-    HomeView(),
+    EventCalendarView(),
     ExploreView(),
     HomeView(),
   ];

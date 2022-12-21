@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.at_events">
+    package="com.flutter_app">
    <application
-        android:label="at_events"
+        android:label="main"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
