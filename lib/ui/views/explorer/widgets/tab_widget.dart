@@ -1,6 +1,8 @@
+import 'package:at_events/services/event_service.dart';
 import 'package:at_events/ui/theme/colors.dart';
 import 'package:at_events/ui/views/explorer/widgets/card_info_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TabEvents extends StatefulWidget {
   const TabEvents({super.key});
@@ -20,6 +22,8 @@ class _TabEventsState extends State<TabEvents>
 
   @override
   Widget build(BuildContext context) {
+    final eventService = Provider.of<EventService>(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -60,36 +64,34 @@ class _TabEventsState extends State<TabEvents>
             physics: const NeverScrollableScrollPhysics(),
             children: [
               ListView.builder(
-                itemCount: 5,
+                itemCount: eventService.showEvenstByPrice(false).length,
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return const CardInfo(
-                    decorationImage: DecorationImage(
-                      image: AssetImage('assets/images/showcar.jpg'),
-                      fit: BoxFit.cover,
-                    ),
-                    costo: '',
-                    h1: 'Car Expo',
-                    h2: '15 Dic 2022',
-                    h3: 'Lima',
+                  final event = eventService.showEvenstByPrice(false)[index];
+
+                  return CardInfo(
+                    price: 0,
+                    title: event.name!,
+                    date: event.date!,
+                    place: event.place!,
+                    imageName: event.imageName!,
                   );
                 },
               ),
               ListView.builder(
-                itemCount: 3,
+                itemCount: eventService.showEvenstByPrice(true).length,
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return const CardInfo(
-                    decorationImage: DecorationImage(
-                      image: AssetImage('assets/images/showcar.jpg'),
-                      fit: BoxFit.cover,
-                    ),
-                    costo: 'S/. 30',
-                    h1: 'Car Expo',
-                    h2: '15 Dic 2022',
-                    h3: 'Lima',
+                  final event = eventService.showEvenstByPrice(true)[index];
+                  print(event.price);
+                  return CardInfo(
+                    price: event.price!,
+                    title: event.name!,
+                    date: event.date!,
+                    place: event.place!,
+                    imageName: event.imageName!,
                   );
                 },
               ),

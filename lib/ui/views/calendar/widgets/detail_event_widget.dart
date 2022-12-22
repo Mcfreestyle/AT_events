@@ -1,8 +1,10 @@
+import 'dart:typed_data';
+
 import 'package:at_events/ui/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class DetailEventWidget extends StatelessWidget {
-  final String? imageEvent;
+  final Uint8List? imageEvent;
   final String? titleEvent;
   final String? fechaEvent;
   final String? hoursEvent;
@@ -30,9 +32,17 @@ class DetailEventWidget extends StatelessWidget {
         children: [
           Container(
             height: 180.0,
-            child: Ink.image(
-              image: NetworkImage('$imageEvent'),
-              fit: BoxFit.cover,
+            // child: Ink.image(
+            //   image: NetworkImage('$imageEvent'),
+            //   fit: BoxFit.cover,
+            // ),
+            child: SizedBox(
+              width: double.infinity,
+              height: 200,
+              child: Image.memory(
+                Uint8List.fromList(imageEvent!),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Container(

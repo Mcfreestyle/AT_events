@@ -20,7 +20,7 @@ class _MyNavigatorState extends State<MyNavigator>
   late int currentPage;
   late TabController tabController;
 
-  static List<Widget> _widgetOptions = <Widget>[
+  final List<Widget> _widgetOptions = <Widget>[
     HomeView(),
     EventCalendarView(),
     ExploreView(),

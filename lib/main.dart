@@ -1,3 +1,6 @@
+import 'package:at_events/providers/storage_provider.dart';
+import 'package:at_events/services/event_service.dart';
+import 'package:at_events/ui/views/calendar/datails_event.dart';
 import 'package:at_events/ui/views/onboarding/onboarding.dart';
 import 'package:at_events/ui/views/explorer/explorer_view.dart';
 import 'package:at_events/ui/views/profile/profile_view.dart';
@@ -8,10 +11,23 @@ import 'package:flutter/material.dart';
 import 'package:at_events/ui/views/login/login_view.dart';
 import 'package:at_events/ui/navigator.dart';
 import 'package:at_events/ui/views/home/home_view.dart';
+import 'package:provider/provider.dart';
 import 'ui/views/shared/event_form_view.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => EventService(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => StorageImageProvider(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -22,7 +38,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      /* theme: ThemeData(
+      /*theme: ThemeData(
         useMaterial3: true,
         primarySwatch: Colors.blue,
       ),*/
@@ -37,6 +53,7 @@ class MyApp extends StatelessWidget {
         'search_view': (_) => const SearchView(),
         'onboarding_view': (_) => const OnboardingView(),
         'perfil_view': (_) => const ProfileView(),
+        'event_details_view': (_) => const DetailsEvent(),
       },
     );
   }

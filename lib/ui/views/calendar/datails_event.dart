@@ -1,31 +1,48 @@
-import 'package:at_events/ui/views/calendar/widgets/detail_event_widget.dart';
+import 'package:at_events/providers/storage_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+
+import 'package:at_events/services/event_service.dart';
+import 'package:at_events/ui/views/calendar/widgets/detail_event_widget.dart';
 
 class DetailsEvent extends StatelessWidget {
   const DetailsEvent({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final eventService = Provider.of<EventService>(context);
+    final storageImage = Provider.of<StorageImageProvider>(context);
+    final event = eventService.selectedEvent;
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.black),
         elevation: 1,
         backgroundColor: Colors.white,
       ),
-      body: ListView(
-        children: const [
-          DetailEventWidget(
-            imageEvent:
-                'https://cdn.pixabay.com/photo/2022/10/17/15/02/photography-7527978_960_720.jpg',
-            titleEvent: 'FOTOS AL AIRE LIBRE',
-            fechaEvent: ' Martes 2 de Diciembre',
-            ubicacionEvent: 'Ubicacion',
-            descriptionEvent:
-                'To switch to a new route, use the Navigator.push() method. The push() method adds a Route to the stack of routes managed by the Navigator. Where does the Route come from? You can create your own, or use a MaterialPageRoute, which is useful because it transitions to the new route using a platform-specific animation.',
-            nameBussinesEvent: 'Empresa Sac',
-            numberBussinesEvent: '912345678',
-          ),
-        ],
+      body: FutureBuilder(
+        future: storageImage.downloadImageStorage(event!.imageName),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView(
+              children: [
+                DetailEventWidget(
+                  imageEvent: snapshot.data,
+                  titleEvent: event.name,
+                  fechaEvent:
+                      DateFormat('E, d MMM yyyy h:mm a').format(event.date!),
+                  ubicacionEvent: event.place,
+                  descriptionEvent: event.description,
+                  nameBussinesEvent: 'Empresa Sac',
+                  numberBussinesEvent: '912345678',
+                ),
+              ],
+            );
+          } else {
+            return const Text('No hay datos');
+          }
+        },
       ),
     );
   }

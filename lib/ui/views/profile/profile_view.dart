@@ -21,7 +21,7 @@ class ProfileView extends StatelessWidget {
         body: ListView(
           children: [
             Column(children: [
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               SizedBox(
