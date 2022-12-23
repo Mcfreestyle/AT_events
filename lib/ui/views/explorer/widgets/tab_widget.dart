@@ -22,7 +22,7 @@ class _TabEventsState extends State<TabEvents>
 
   @override
   Widget build(BuildContext context) {
-    final eventService = Provider.of<EventService>(context);
+    final eventService = context.watch<EventService>();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,7 +75,11 @@ class _TabEventsState extends State<TabEvents>
                     title: event.name!,
                     date: event.date!,
                     place: event.place!,
-                    imageName: event.imageName!,
+                    uint8Image: event.uint8Image!,
+                    onTap: () {
+                      eventService.selectedEvent = event;
+                      Navigator.pushNamed(context, 'event_details_view');
+                    },
                   );
                 },
               ),
@@ -85,13 +89,17 @@ class _TabEventsState extends State<TabEvents>
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   final event = eventService.showEvenstByPrice(true)[index];
-                  print(event.price);
+
                   return CardInfo(
                     price: event.price!,
                     title: event.name!,
                     date: event.date!,
                     place: event.place!,
-                    imageName: event.imageName!,
+                    uint8Image: event.uint8Image!,
+                    onTap: () {
+                      eventService.selectedEvent = event;
+                      Navigator.pushNamed(context, 'event_details_view');
+                    },
                   );
                 },
               ),

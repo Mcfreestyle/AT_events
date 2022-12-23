@@ -1,15 +1,22 @@
+import 'package:at_events/services/category_service.dart';
+import 'package:at_events/services/event_service.dart';
 import 'package:at_events/ui/theme/colors.dart';
 import 'package:at_events/ui/widgets/card_widget.dart';
 import 'package:at_events/ui/views/explorer/widgets/category_widget.dart';
 import 'package:at_events/ui/views/explorer/widgets/tab_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ExploreView extends StatelessWidget {
   const ExploreView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final categoryService = Provider.of<CategoryService>(context);
+    final eventService = context.watch<EventService>();
+    print('building ExploreView');
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
@@ -84,50 +91,68 @@ class ExploreView extends StatelessWidget {
                 ),
               ),
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              physics: const BouncingScrollPhysics(),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  children: [
-                    CatEvent(
-                      icon: Image.asset('assets/icons/celebration.png'),
-                      text: 'Celebration',
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    CatEvent(
-                      icon: Image.asset('assets/icons/party.png'),
-                      text: 'Party',
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    CatEvent(
-                      icon: Image.asset('assets/icons/concert.png'),
-                      text: 'Concert',
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    CatEvent(
-                      icon: Image.asset('assets/icons/exhibition.png'),
-                      text: 'Exhibition',
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    CatEvent(
-                      icon: Image.asset('assets/icons/food.png'),
-                      text: 'Food',
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                  ],
-                ),
+            // SingleChildScrollView(
+            //   scrollDirection: Axis.horizontal,
+            //   physics: const BouncingScrollPhysics(),
+            //   child: Padding(
+            //     padding: const EdgeInsets.symmetric(horizontal: 10),
+            //     child: Row(
+            //       children: [
+            //         const SizedBox(
+            //           width: 20,
+            //         ),
+            //         CatEvent(
+            //           icon: Image.asset('assets/icons/party.png'),
+            //           text: 'Fiesta',
+            //         ),
+            //         const SizedBox(
+            //           width: 20,
+            //         ),
+            //         CatEvent(
+            //           icon: Image.asset('assets/icons/concert.png'),
+            //           text: 'Concierto',
+            //         ),
+            //         const SizedBox(
+            //           width: 20,
+            //         ),
+            //         CatEvent(
+            //           icon: Image.asset('assets/icons/exhibition.png'),
+            //           text: 'Exhibicion',
+            //         ),
+            //         const SizedBox(
+            //           width: 20,
+            //         ),
+            //         CatEvent(
+            //           icon: Image.asset('assets/icons/food.png'),
+            //           text: 'Comida',
+            //         ),
+            //         const SizedBox(
+            //           width: 20,
+            //         ),
+            //         CatEvent(
+            //           icon: Image.asset('assets/icons/celebration.png'),
+            //           text: 'Otro',
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+            SizedBox(
+              height: 100,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: categoryService.categories.length,
+                itemBuilder: (context, index) {
+                  final category = categoryService.categories[index];
+
+                  return CatEvent(
+                    icon: Image.asset('assets/icons/${category.name}.png'),
+                    text: category.name!,
+                    onTap: () async {
+                      await eventService.showEventsByCategory(category.id!);
+                    },
+                  );
+                },
               ),
             ),
             const Padding(
@@ -143,17 +168,16 @@ class ExploreView extends StatelessWidget {
             ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              itemCount: 5,
+              itemCount: eventService.eventsByCategory.length,
               itemBuilder: (context, index) {
-                return const CardEvent(
-                  img: DecorationImage(
-                    image: AssetImage('assets/images/showcar.jpg'),
-                    fit: BoxFit.cover,
-                  ),
-                  h1: 'Card Events',
-                  h2: '15 feb. 2022',
-                  h3: 'Cajamarca',
+                final event = eventService.eventsByCategory[index];
+
+                return CardEvent(
+                  title: event.name!,
+                  date: event.date!,
+                  place: event.place!,
                   h4: '95 interesados',
+                  uint8Image: event.uint8Image!,
                 );
               },
             ),

@@ -21,7 +21,18 @@ class _LoginViewState extends State<LoginView> {
         padding: const EdgeInsets.all(24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(
+              height: 120,
+              child: Image.asset(
+                'assets/icons/logo_at_event.png',
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
             const SizedBox(
               width: double.infinity,
               child: Text(

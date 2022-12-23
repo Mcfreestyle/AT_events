@@ -16,14 +16,15 @@ class OnboardingView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
       builder: (context, value, g) {
-        return MaterialApp(
-          theme: ThemeData(
-            canvasColor: Color(0xFFFFFFFF),
-          ),
-          home: CarouselWithIndicatorDemo(),
-          themeMode: ThemeMode.values.toList()[value as int],
-          debugShowCheckedModeBanner: false,
-        );
+        return CarouselWithIndicatorDemo();
+        // return MaterialApp(
+        //   theme: ThemeData(
+        //     canvasColor: Color(0xFFFFFFFF),
+        //   ),
+        //   home: CarouselWithIndicatorDemo(),
+        //   themeMode: ThemeMode.values.toList()[value as int],
+        //   debugShowCheckedModeBanner: false,
+        // );
       },
       valueListenable: themeMode,
     );

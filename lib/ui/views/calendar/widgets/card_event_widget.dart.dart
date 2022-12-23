@@ -1,29 +1,25 @@
 import 'dart:typed_data';
 
-import 'package:at_events/providers/storage_provider.dart';
 import 'package:at_events/ui/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 class CardEventCalendar extends StatelessWidget {
-  final String? imageEvent;
+  final Uint8List? uint8Image;
   final String? titleEvent;
   final DateTime? hoursEvent;
   final Function() onTap;
 
   const CardEventCalendar({
     Key? key,
-    this.imageEvent,
     this.titleEvent,
     this.hoursEvent,
+    this.uint8Image,
     required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final storageImage = Provider.of<StorageImageProvider>(context);
-
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -46,26 +42,13 @@ class CardEventCalendar extends StatelessWidget {
                 //   width: double.infinity,
                 //   height: 160,
                 // ),
-                FutureBuilder(
-                  future: storageImage.downloadImageStorage(imageEvent),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return SizedBox(
-                        width: double.infinity,
-                        height: 160,
-                        child: Image.memory(
-                          Uint8List.fromList(snapshot.data),
-                          fit: BoxFit.cover,
-                        ),
-                      );
-                    } else {
-                      return Container(
-                        color: MyColor.terciary,
-                        height: 160,
-                        width: double.infinity,
-                      );
-                    }
-                  },
+                SizedBox(
+                  width: double.infinity,
+                  height: 160,
+                  child: Image.memory(
+                    Uint8List.fromList(uint8Image!),
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 Container(
                   padding: const EdgeInsets.all(8.0),

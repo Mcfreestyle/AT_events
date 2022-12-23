@@ -1,6 +1,8 @@
 import 'package:at_events/providers/storage_provider.dart';
+import 'package:at_events/services/category_service.dart';
 import 'package:at_events/services/event_service.dart';
-import 'package:at_events/ui/views/calendar/datails_event.dart';
+import 'package:at_events/ui/navigator.dart';
+import 'package:at_events/ui/views/calendar/details_event.dart';
 import 'package:at_events/ui/views/onboarding/onboarding.dart';
 import 'package:at_events/ui/views/explorer/explorer_view.dart';
 import 'package:at_events/ui/views/profile/profile_view.dart';
@@ -9,7 +11,6 @@ import 'package:at_events/ui/views/signup/signup_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:at_events/ui/views/login/login_view.dart';
-import 'package:at_events/ui/navigator.dart';
 import 'package:at_events/ui/views/home/home_view.dart';
 import 'package:provider/provider.dart';
 import 'ui/views/shared/event_form_view.dart';
@@ -19,10 +20,18 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => EventService(),
+          create: (context) => StorageImageProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => StorageImageProvider(),
+          create: (context) => CategoryService(),
+        ),
+        ChangeNotifierProxyProvider<StorageImageProvider, EventService>(
+          create: (context) => EventService(),
+          update: ((context, storage, service) {
+            if (service == null) throw ArgumentError.notNull('service');
+            service.storageImage = storage;
+            return service;
+          }),
         ),
       ],
       child: const MyApp(),
@@ -42,7 +51,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         primarySwatch: Colors.blue,
       ),*/
-      initialRoute: 'login_view',
+      initialRoute: 'onboarding_view',
       routes: {
         'login_view': (_) => const LoginView(),
         'signup_view': (_) => const SignupView(),

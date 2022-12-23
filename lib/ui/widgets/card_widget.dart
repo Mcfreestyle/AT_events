@@ -1,20 +1,24 @@
+import 'dart:typed_data';
+
 import 'package:at_events/ui/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CardEvent extends StatelessWidget {
-  final DecorationImage img;
-  final String h1;
-  final String h2;
-  final String h3;
+  final String title;
+  final DateTime date;
+  final String place;
   final String h4;
+  final Uint8List uint8Image;
 
-  const CardEvent(
-      {super.key,
-      required this.img,
-      required this.h1,
-      required this.h2,
-      required this.h3,
-      required this.h4});
+  const CardEvent({
+    super.key,
+    required this.title,
+    required this.date,
+    required this.place,
+    required this.h4,
+    required this.uint8Image,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +47,15 @@ class CardEvent extends StatelessWidget {
                     width: 10,
                   ),
                   /* img */
-                  Container(
+                  SizedBox(
                     width: 120,
                     height: 120,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(7),
-                      image: img,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.memory(
+                        Uint8List.fromList(uint8Image),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   /* datos */
@@ -62,20 +69,20 @@ class CardEvent extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          h1,
+                          title,
                           style: const TextStyle(
                             fontSize: 18.0,
                           ),
                         ),
                         Text(
-                          h2,
+                          DateFormat('E, d MMM yyyy h:mm a').format(date),
                           style: TextStyle(
                             color: MyColor.secondary,
                             fontSize: 15.0,
                           ),
                         ),
                         Text(
-                          h3,
+                          place,
                           style: TextStyle(
                             color: MyColor.secondary,
                             fontSize: 12.0,

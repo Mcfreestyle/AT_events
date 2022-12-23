@@ -1,3 +1,4 @@
+import 'package:at_events/models/event_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +14,16 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     print('Building HomeView');
     final eventService = Provider.of<EventService>(context);
-    final storageImage = Provider.of<StorageImageProvider>(context);
+    // final events = eventService.events;
+    // print('events: $events');
+
+    if (eventService.isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    final events =
+        context.select<EventService, List<Event>>((service) => service.events);
+    print('events: $events');
 
     return Scaffold(
       appBar: AppBar(
@@ -54,26 +64,18 @@ class HomeView extends StatelessWidget {
         ],
       ),
       body: ListView.builder(
-        itemCount: eventService.events.length,
+        itemCount: events.length,
         itemBuilder: (BuildContext context, int index) {
-          final event = eventService.events[index];
+          final event = events[index];
 
-          return FutureBuilder(
-            future: storageImage.downloadImageStorage(event.imageName),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return HomeEventsCard(
-                  name: event.name!,
-                  date: event.date!,
-                  place: event.place!,
-                  image: snapshot.data!,
-                  onTap: () {
-                    eventService.selectedEvent = event;
-                    Navigator.pushNamed(context, 'event_details_view');
-                  },
-                );
-              }
-              return const Text('No hay imagen');
+          return HomeEventsCard(
+            name: event.name!,
+            date: event.date!,
+            place: event.place!,
+            image: event.uint8Image!,
+            onTap: () {
+              eventService.selectedEvent = event;
+              Navigator.pushNamed(context, 'event_details_view');
             },
           );
         },

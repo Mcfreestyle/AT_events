@@ -1,13 +1,17 @@
+import 'package:at_events/services/event_service.dart';
 import 'package:at_events/ui/views/shared/search/widgets/textformfield_widget.dart';
 import 'package:at_events/ui/widgets/card_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SearchView extends StatelessWidget {
   const SearchView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final eventService = Provider.of<EventService>(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
@@ -47,17 +51,16 @@ class SearchView extends StatelessWidget {
       ),
       body: ListView.builder(
         physics: const BouncingScrollPhysics(),
-        itemCount: 5,
+        itemCount: eventService.events.length,
         itemBuilder: (context, index) {
-          return const CardEvent(
-            img: DecorationImage(
-              image: AssetImage('assets/images/showcar.jpg'),
-              fit: BoxFit.cover,
-            ),
-            h1: 'Card Events',
-            h2: '15 feb. 2022',
-            h3: 'Cajamarca',
+          final event = eventService.events[index];
+
+          return CardEvent(
+            title: event.name!,
+            date: event.date!,
+            place: event.place!,
             h4: '95 interesados',
+            uint8Image: event.uint8Image!,
           );
         },
       ),

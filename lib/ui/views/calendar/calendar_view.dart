@@ -1,6 +1,6 @@
 import 'package:at_events/services/event_service.dart';
 import 'package:at_events/ui/theme/colors.dart';
-import 'package:at_events/ui/views/calendar/datails_event.dart';
+import 'package:at_events/ui/views/calendar/details_event.dart';
 import 'package:at_events/ui/views/calendar/widgets/card_event_widget.dart.dart';
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
@@ -159,7 +159,7 @@ class _EventCalendarView extends State<EventCalendarView> {
                             itemBuilder: (context, index) {
                               final event = eventsByDate[index];
                               return CardEventCalendar(
-                                imageEvent: event.imageName,
+                                uint8Image: event.uint8Image,
                                 titleEvent: event.name,
                                 hoursEvent: event.date,
                                 onTap: () {
@@ -206,11 +206,11 @@ class _EventCalendarView extends State<EventCalendarView> {
                           height: 230,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: eventsByDate.length,
+                            itemCount: eventService.events.length,
                             itemBuilder: (context, index) {
-                              final event = eventsByDate[index];
+                              final event = eventService.events[index];
                               return CardEventCalendar(
-                                imageEvent: event.imageName,
+                                uint8Image: event.uint8Image,
                                 titleEvent: event.name,
                                 hoursEvent: event.date,
                                 onTap: () {
@@ -262,7 +262,7 @@ class _EventCalendarView extends State<EventCalendarView> {
                             itemBuilder: (context, index) {
                               final event = eventService.events[index];
                               return CardEventCalendar(
-                                imageEvent: event.imageName,
+                                uint8Image: event.uint8Image,
                                 titleEvent: event.name,
                                 hoursEvent: event.date,
                                 onTap: () {

@@ -66,24 +66,6 @@ class _EventFormViewState extends State<EventFormView> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 200,
-                  child: CalendarTimeline(
-                    showYears: false,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime.now(),
-                    lastDate: DateTime.now().add(const Duration(days: 365 * 4)),
-                    onDateSelected: (date) {},
-                    leftMargin: 15,
-                    monthColor: Colors.black,
-                    dayColor: Colors.black,
-                    dayNameColor: Colors.white,
-                    activeDayColor: Colors.white,
-                    activeBackgroundDayColor: MyColor.primary,
-                    dotsColor: const Color(0xFF333A47),
-                    locale: 'es',
-                  ),
-                ),
                 Padding(
                   padding: const EdgeInsets.all(24),
                   child: Column(

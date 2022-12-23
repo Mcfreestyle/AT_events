@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 class Event {
   Event({
     this.id,
@@ -11,6 +13,7 @@ class Event {
     this.imageName,
     this.price,
     this.categoryId,
+    this.uint8Image,
   });
 
   int? id;
@@ -22,6 +25,7 @@ class Event {
   String? imageName;
   double? price;
   int? categoryId;
+  Uint8List? uint8Image;
 
   factory Event.fromJson(String str) => Event.fromMap(json.decode(str));
 
@@ -49,5 +53,6 @@ class Event {
         "imageName": imageName,
         "price": price,
         "category_id": categoryId,
+        "unit8Image": uint8Image,
       };
 }

@@ -1,4 +1,3 @@
-import 'package:at_events/providers/storage_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +11,6 @@ class DetailsEvent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final eventService = Provider.of<EventService>(context);
-    final storageImage = Provider.of<StorageImageProvider>(context);
     final event = eventService.selectedEvent;
 
     return Scaffold(
@@ -21,28 +19,18 @@ class DetailsEvent extends StatelessWidget {
         elevation: 1,
         backgroundColor: Colors.white,
       ),
-      body: FutureBuilder(
-        future: storageImage.downloadImageStorage(event!.imageName),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return ListView(
-              children: [
-                DetailEventWidget(
-                  imageEvent: snapshot.data,
-                  titleEvent: event.name,
-                  fechaEvent:
-                      DateFormat('E, d MMM yyyy h:mm a').format(event.date!),
-                  ubicacionEvent: event.place,
-                  descriptionEvent: event.description,
-                  nameBussinesEvent: 'Empresa Sac',
-                  numberBussinesEvent: '912345678',
-                ),
-              ],
-            );
-          } else {
-            return const Text('No hay datos');
-          }
-        },
+      body: ListView(
+        children: [
+          DetailEventWidget(
+            imageEvent: event!.uint8Image,
+            titleEvent: event.name,
+            fechaEvent: DateFormat('E, d MMM yyyy h:mm a').format(event.date!),
+            ubicacionEvent: event.place,
+            descriptionEvent: event.description,
+            nameBussinesEvent: 'Empresa Sac',
+            numberBussinesEvent: '912345678',
+          ),
+        ],
       ),
     );
   }
