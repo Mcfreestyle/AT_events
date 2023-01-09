@@ -20,7 +20,7 @@ class _MyNavigatorState extends State<MyNavigator>
   late int currentPage;
   late TabController tabController;
 
-  final List<Widget> _widgetOptions = <Widget>[
+  final List<Widget> _widgetOptions = const [
     HomeView(),
     EventCalendarView(),
     ExploreView(),
@@ -61,6 +61,7 @@ class _MyNavigatorState extends State<MyNavigator>
 
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.transparent,
         body: BottomBar(
           barColor: MyColor.terciary,
           borderRadius: BorderRadius.circular(500),

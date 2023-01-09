@@ -1,0 +1,11 @@
+export 'package:at_events/ui/views/onboarding/onboarding.dart';
+export 'package:at_events/ui/views/login/login_view.dart';
+export 'package:at_events/ui/views/signup/signup_view.dart';
+export 'package:at_events/ui/navigator.dart';
+export 'package:at_events/ui/views/home/home_view.dart';
+export 'package:at_events/ui/views/shared/event_form/event_form_view.dart';
+export 'package:at_events/ui/views/calendar/calendar_view.dart';
+export 'package:at_events/ui/views/explorer/explorer_view.dart';
+export 'package:at_events/ui/views/calendar/details_event.dart';
+export 'package:at_events/ui/views/shared/search/search_view.dart';
+export 'package:at_events/ui/views/profile/profile_view.dart';

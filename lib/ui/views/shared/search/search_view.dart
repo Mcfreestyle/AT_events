@@ -1,3 +1,4 @@
+import 'package:at_events/routes/route.dart';
 import 'package:at_events/services/event_service.dart';
 import 'package:at_events/ui/views/shared/search/widgets/textformfield_widget.dart';
 import 'package:at_events/ui/widgets/card_widget.dart';
@@ -61,6 +62,10 @@ class SearchView extends StatelessWidget {
             place: event.place!,
             h4: '95 interesados',
             uint8Image: event.uint8Image!,
+            onTap: () {
+              eventService.selectedEvent = event;
+              Navigator.pushNamed(context, MyRoutes.rEVENT);
+            },
           );
         },
       ),

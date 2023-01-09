@@ -1,16 +1,45 @@
+// import 'dart:html';
+
+import 'dart:io';
+
+import 'package:at_events/providers/storage_provider.dart';
+import 'package:at_events/routes/route.dart';
+import 'package:at_events/services/auth_service.dart';
+import 'package:at_events/services/event_service.dart';
 import 'package:at_events/ui/theme/colors.dart';
 import 'package:at_events/ui/views/profile/widgets/profile_edit.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
+
+  ImageProvider setImage(String imageName) {
+    late final ImageProvider image;
+    final imageRoute =
+        'https://chyazarkkwiioawhxilu.supabase.co/storage/v1/object/public/users/IMG/$imageName';
+
+    if (imageName == '') {
+      image = const AssetImage('assets/images/profile.webp');
+    } else {
+      image = NetworkImage(imageRoute);
+    }
+    return image;
+  }
+
   @override
   Widget build(BuildContext context) {
+    print('building ProfileView');
+    final authService = context.watch<AuthService>();
+    final user = authService.user;
+
+    final image = setImage(user.imageName);
+
     return Scaffold(
         backgroundColor: const Color(0xFFFFFFFF),
         // backgroundColor: Color.fromARGB(255, 206, 196, 196),
         appBar: AppBar(
-          elevation: 1,
+          elevation: 0,
           backgroundColor: Colors.white,
           title: const Text(
             'Perfil',
@@ -27,27 +56,8 @@ class ProfileView extends StatelessWidget {
               SizedBox(
                 height: 150,
                 width: 200,
-                child: Stack(
-                  fit: StackFit.expand,
-                  clipBehavior: Clip.none,
-                  children: [
-                    CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          'https://cdn.pixabay.com/photo/2022/11/16/13/39/cuddly-toys-7596017_960_720.jpg'),
-                    ),
-                    Positioned(
-                      bottom: -8,
-                      right: 10,
-                      child: RawMaterialButton(
-                        onPressed: () {},
-                        elevation: 2.0,
-                        fillColor: Color(0xFFF5F6F9),
-                        child: Icon(Icons.camera_alt, color: MyColor.primary),
-                        padding: EdgeInsets.all(1.0),
-                        shape: CircleBorder(),
-                      ),
-                    )
-                  ],
+                child: CircleAvatar(
+                  backgroundImage: image,
                 ),
               ),
               const SizedBox(
@@ -67,14 +77,14 @@ class ProfileView extends StatelessWidget {
                     Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: const [
-                          Icon(Icons.person),
-                          SizedBox(
+                        children: [
+                          const Icon(Icons.person),
+                          const SizedBox(
                             width: 8,
                           ),
                           Text(
-                            ' Alonso',
-                            style: TextStyle(
+                            user.userName,
+                            style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                         ],
@@ -86,14 +96,14 @@ class ProfileView extends StatelessWidget {
                     Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: const [
-                          Icon(Icons.person),
-                          SizedBox(
+                        children: [
+                          const Icon(Icons.person),
+                          const SizedBox(
                             width: 8,
                           ),
                           Text(
-                            'Arrieta Solis',
-                            style: TextStyle(
+                            '${user.name} ${user.lastName}',
+                            style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                         ],
@@ -105,14 +115,14 @@ class ProfileView extends StatelessWidget {
                     Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: const [
-                          Icon(Icons.phone_android),
-                          SizedBox(
+                        children: [
+                          const Icon(Icons.phone_android),
+                          const SizedBox(
                             width: 8,
                           ),
                           Text(
-                            '985425412',
-                            style: TextStyle(
+                            user.phone,
+                            style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                         ],
@@ -124,14 +134,14 @@ class ProfileView extends StatelessWidget {
                     Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: const [
-                          Icon(Icons.location_on),
-                          SizedBox(
+                        children: [
+                          const Icon(Icons.email),
+                          const SizedBox(
                             width: 8,
                           ),
                           Text(
-                            'Surco',
-                            style: TextStyle(
+                            user.email,
+                            style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                         ],
@@ -158,12 +168,11 @@ class ProfileView extends StatelessWidget {
                                 style: TextStyle(color: Colors.white),
                               ),
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const PerfilScreen()),
-                                );
+                                final storageImage =
+                                    context.read<StorageImageProvider>();
+                                storageImage.cleanImage();
+                                Navigator.pushNamed(
+                                    context, MyRoutes.rPROFILEFORM);
                               },
                             ),
                           ),
@@ -236,11 +245,21 @@ class ProfileView extends StatelessWidget {
                                     horizontal: 5, vertical: 5),
                                 textStyle: TextStyle(fontSize: 15),
                               ),
-                              child: Text(
+                              child: const Text(
                                 'Cerrar sesion',
                                 style: TextStyle(color: Colors.white),
                               ),
-                              onPressed: () {},
+                              onPressed: () async {
+                                final eventService =
+                                    context.read<EventService>();
+                                eventService.events.clear();
+                                eventService.eventsAttendancesOfUser.clear();
+                                eventService.eventsInterestsOfUser.clear();
+                                await authService.closeSession();
+                                // ignore: use_build_context_synchronously
+                                Navigator.pushReplacementNamed(
+                                    context, MyRoutes.rONBOARDING);
+                              },
                             ),
                           ),
                         ),

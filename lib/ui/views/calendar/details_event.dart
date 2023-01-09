@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'package:at_events/services/event_service.dart';
 import 'package:at_events/ui/views/calendar/widgets/detail_event_widget.dart';
 
 class DetailsEvent extends StatelessWidget {
-  const DetailsEvent({super.key});
+  const DetailsEvent({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final eventService = Provider.of<EventService>(context);
+    final eventService = context.watch<EventService>();
     final event = eventService.selectedEvent;
+    final args = (ModalRoute.of(context)!.settings.arguments ?? false) as bool;
+    final bool edition = args;
 
     return Scaffold(
       appBar: AppBar(
@@ -22,13 +25,8 @@ class DetailsEvent extends StatelessWidget {
       body: ListView(
         children: [
           DetailEventWidget(
-            imageEvent: event!.uint8Image,
-            titleEvent: event.name,
-            fechaEvent: DateFormat('E, d MMM yyyy h:mm a').format(event.date!),
-            ubicacionEvent: event.place,
-            descriptionEvent: event.description,
-            nameBussinesEvent: 'Empresa Sac',
-            numberBussinesEvent: '912345678',
+            edition: edition,
+            event: event!,
           ),
         ],
       ),

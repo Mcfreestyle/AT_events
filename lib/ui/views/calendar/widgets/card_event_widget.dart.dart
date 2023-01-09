@@ -1,25 +1,32 @@
 import 'dart:typed_data';
 
+import 'package:at_events/models/event_model.dart';
 import 'package:at_events/ui/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class CardEventCalendar extends StatelessWidget {
-  final Uint8List? uint8Image;
-  final String? titleEvent;
-  final DateTime? hoursEvent;
+  final Event event;
   final Function() onTap;
 
   const CardEventCalendar({
     Key? key,
-    this.titleEvent,
-    this.hoursEvent,
-    this.uint8Image,
+    required this.event,
     required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    late String dateOrHour;
+    final String eventDate = DateFormat('dd/MM/yyyy').format(event.date!);
+    final String nowDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
+
+    if (eventDate == nowDate) {
+      dateOrHour = 'Hora: ${DateFormat('h:mm a').format(event.date!)}';
+    } else {
+      dateOrHour = DateFormat('E, d MMM yyyy h:mm a').format(event.date!);
+    }
+
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -46,7 +53,7 @@ class CardEventCalendar extends StatelessWidget {
                   width: double.infinity,
                   height: 160,
                   child: Image.memory(
-                    Uint8List.fromList(uint8Image!),
+                    Uint8List.fromList(event.uint8Image!),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -56,10 +63,11 @@ class CardEventCalendar extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('$titleEvent',
+                      Text(event.name!,
                           style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 17)),
-                      Text('Hora: ${DateFormat('h:mm a').format(hoursEvent!)}')
+                      Text(dateOrHour),
+                      Text(event.place!)
                     ],
                   ),
                 )

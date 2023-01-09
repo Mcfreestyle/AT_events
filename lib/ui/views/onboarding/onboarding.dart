@@ -1,3 +1,4 @@
+import 'package:at_events/routes/route.dart';
 import 'package:at_events/ui/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -101,12 +102,12 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
             child: ButtonWidget(
               title: 'Empezar',
               type: 'primary',
-              function: () {
+              onPressed: () {
                 /* Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const LoginView()),
                 );*/
-                Navigator.pushReplacementNamed(context, 'login_view');
+                Navigator.pushReplacementNamed(context, MyRoutes.rLOGIN);
               },
             ),
           ),

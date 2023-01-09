@@ -1,21 +1,29 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 class User {
   User({
     this.id,
     this.createdAt,
-    this.name,
-    this.lastName,
-    this.email,
-    this.password,
+    this.userName = '',
+    this.name = '',
+    this.lastName = '',
+    this.email = '',
+    this.password = '',
+    this.phone = '',
+    this.imageName = '',
   });
 
-  int? id;
+  String? id;
   DateTime? createdAt;
-  String? name;
-  String? lastName;
-  String? email;
-  String? password;
+  String userName;
+  String name;
+  String lastName;
+  String email;
+  String password;
+  String phone;
+  String imageName;
 
   factory User.fromJson(String str) => User.fromMap(json.decode(str));
 
@@ -25,17 +33,21 @@ class User {
         id: json["id"],
         createdAt: DateTime.parse(json["created_at"]),
         name: json["name"],
-        lastName: json["last_name"],
+        userName: json['userName'],
+        lastName: json["lastName"],
         email: json["email"],
         password: json["password"],
+        phone: json["phone"],
       );
 
   Map<String, dynamic> toMap() => {
         "id": id,
         "created_at": createdAt?.toIso8601String(),
         "name": name,
-        "last_name": lastName,
+        "userName": userName,
+        "lastName": lastName,
         "email": email,
         "password": password,
+        "phone": phone,
       };
 }

@@ -9,6 +9,9 @@ class TextFieldWidget extends StatelessWidget {
   final TextEditingController? controller;
   final String hintText;
   final bool obscureText;
+  final Function(String)? onChanged;
+  final String? Function(String?)? validator;
+  final String? initialValue;
 
   const TextFieldWidget({
     super.key,
@@ -17,12 +20,18 @@ class TextFieldWidget extends StatelessWidget {
     required this.hintText,
     this.controller,
     this.obscureText = false,
+    this.onChanged,
+    this.validator,
+    this.initialValue,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: initialValue,
       controller: controller,
+      onChanged: onChanged,
+      validator: validator,
       keyboardType: keyboardType,
       cursorColor: MyColor.primary,
       obscureText: obscureText,

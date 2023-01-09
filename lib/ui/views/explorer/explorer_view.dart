@@ -1,10 +1,11 @@
+import 'package:at_events/routes/route.dart';
 import 'package:at_events/services/category_service.dart';
 import 'package:at_events/services/event_service.dart';
 import 'package:at_events/ui/theme/colors.dart';
 import 'package:at_events/ui/widgets/card_widget.dart';
 import 'package:at_events/ui/views/explorer/widgets/category_widget.dart';
 import 'package:at_events/ui/views/explorer/widgets/tab_widget.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:at_events/ui/widgets/floating_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,8 +14,8 @@ class ExploreView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final eventService = context.read<EventService>();
     final categoryService = Provider.of<CategoryService>(context);
-    final eventService = context.watch<EventService>();
     print('building ExploreView');
 
     return Scaffold(
@@ -22,6 +23,7 @@ class ExploreView extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(55),
         child: AppBar(
+          elevation: 0,
           backgroundColor: Colors.white,
           iconTheme: const IconThemeData(color: Colors.black),
           title: const Text(
@@ -39,32 +41,21 @@ class ExploreView extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  IconButton(
+                  FloatingButtonWidget(
+                    icon: const Icon(Icons.search),
                     onPressed: () {
-                      Navigator.pushNamed(context, 'search_view');
+                      Navigator.pushNamed(context, MyRoutes.rSEARCH);
                     },
-                    icon: const Icon(
-                      CupertinoIcons.search,
-                    ),
-                    style: _styleIconButton(),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => const NavPPage(),
-                      //   ),
-                      // );
-                    },
+                  FloatingButtonWidget(
                     icon: Transform.rotate(
                       angle: 0.6,
                       child: const Icon(
                         Icons.navigation_rounded,
                       ),
                     ),
-                    style: _styleIconButton(),
-                  ),
+                    onPressed: () {},
+                  )
                 ],
               ),
             ),
@@ -91,52 +82,6 @@ class ExploreView extends StatelessWidget {
                 ),
               ),
             ),
-            // SingleChildScrollView(
-            //   scrollDirection: Axis.horizontal,
-            //   physics: const BouncingScrollPhysics(),
-            //   child: Padding(
-            //     padding: const EdgeInsets.symmetric(horizontal: 10),
-            //     child: Row(
-            //       children: [
-            //         const SizedBox(
-            //           width: 20,
-            //         ),
-            //         CatEvent(
-            //           icon: Image.asset('assets/icons/party.png'),
-            //           text: 'Fiesta',
-            //         ),
-            //         const SizedBox(
-            //           width: 20,
-            //         ),
-            //         CatEvent(
-            //           icon: Image.asset('assets/icons/concert.png'),
-            //           text: 'Concierto',
-            //         ),
-            //         const SizedBox(
-            //           width: 20,
-            //         ),
-            //         CatEvent(
-            //           icon: Image.asset('assets/icons/exhibition.png'),
-            //           text: 'Exhibicion',
-            //         ),
-            //         const SizedBox(
-            //           width: 20,
-            //         ),
-            //         CatEvent(
-            //           icon: Image.asset('assets/icons/food.png'),
-            //           text: 'Comida',
-            //         ),
-            //         const SizedBox(
-            //           width: 20,
-            //         ),
-            //         CatEvent(
-            //           icon: Image.asset('assets/icons/celebration.png'),
-            //           text: 'Otro',
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
             SizedBox(
               height: 100,
               child: ListView.builder(
@@ -165,19 +110,27 @@ class ExploreView extends StatelessWidget {
               ),
             ),
             /* lista de eventos */
-            ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: eventService.eventsByCategory.length,
-              itemBuilder: (context, index) {
-                final event = eventService.eventsByCategory[index];
+            Consumer<EventService>(
+              builder: (context, service, child) {
+                return ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: service.eventsByCategory.length,
+                  itemBuilder: (context, index) {
+                    final event = service.eventsByCategory[index];
 
-                return CardEvent(
-                  title: event.name!,
-                  date: event.date!,
-                  place: event.place!,
-                  h4: '95 interesados',
-                  uint8Image: event.uint8Image!,
+                    return CardEvent(
+                      title: event.name!,
+                      date: event.date!,
+                      place: event.place!,
+                      h4: '95 interesados',
+                      uint8Image: event.uint8Image!,
+                      onTap: () {
+                        eventService.selectedEvent = event;
+                        Navigator.pushNamed(context, MyRoutes.rEVENT);
+                      },
+                    );
+                  },
                 );
               },
             ),

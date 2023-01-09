@@ -1,3 +1,4 @@
+import 'package:at_events/routes/route.dart';
 import 'package:at_events/services/event_service.dart';
 import 'package:at_events/ui/theme/colors.dart';
 import 'package:at_events/ui/views/explorer/widgets/card_info_widget.dart';
@@ -22,7 +23,8 @@ class _TabEventsState extends State<TabEvents>
 
   @override
   Widget build(BuildContext context) {
-    final eventService = context.watch<EventService>();
+    print('building TabEvents');
+    final eventService = context.read<EventService>();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,7 +80,7 @@ class _TabEventsState extends State<TabEvents>
                     uint8Image: event.uint8Image!,
                     onTap: () {
                       eventService.selectedEvent = event;
-                      Navigator.pushNamed(context, 'event_details_view');
+                      Navigator.pushNamed(context, MyRoutes.rEVENT);
                     },
                   );
                 },
@@ -98,7 +100,7 @@ class _TabEventsState extends State<TabEvents>
                     uint8Image: event.uint8Image!,
                     onTap: () {
                       eventService.selectedEvent = event;
-                      Navigator.pushNamed(context, 'event_details_view');
+                      Navigator.pushNamed(context, MyRoutes.rEVENT);
                     },
                   );
                 },
