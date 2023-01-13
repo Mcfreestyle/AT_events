@@ -172,8 +172,6 @@ class _EventFormViewState extends State<EventFormView> {
                             hintText: 'Fecha y hora del evento',
                             suffixIcon: const Icon(Icons.event),
                           ),
-                          // onChanged: (val) => print(val),
-                          onSaved: (val) => print(val),
                         ),
                         const SizedBox(
                           height: 10,

@@ -9,10 +9,10 @@ class CategoryService extends ChangeNotifier {
   final List<Category> categories = [];
 
   CategoryService() {
-    showCategories();
+    // getCategories();
   }
 
-  Future<List<Category>> showCategories() async {
+  Future<List<Category>> getCategories() async {
     final Map<String, String> headers = {
       'apikey':
           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNoeWF6YXJra3dpaW9hd2h4aWx1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzEwMjYyMDIsImV4cCI6MTk4NjYwMjIwMn0.GafapDJw7OVoOdN3osBigeYBp3RzQnocYX8UCxDyH1k',
@@ -24,7 +24,8 @@ class CategoryService extends ChangeNotifier {
     final List<dynamic> categoriesList = json.decode(response.body);
     print('List of categories: $categoriesList');
 
-    categoriesList.forEach((item) async {
+    categories.clear();
+    categoriesList.forEach((item) {
       final category = Category.fromMap(item);
       categories.add(category);
     });

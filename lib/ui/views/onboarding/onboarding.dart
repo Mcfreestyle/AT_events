@@ -34,7 +34,7 @@ class OnboardingView extends StatelessWidget {
 
 final List<Widget> imageSliders = imgList
     .map((item) => Container(
-          //padding: EdgeInsets.fromLTRB(0, 30, 0, 30),
+          padding: const EdgeInsets.fromLTRB(0, 30, 0, 30),
           child: Center(
               child: Image.asset(
             item,

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class CatEvent extends StatelessWidget {
   final Widget icon;
-  final String text;
+  final Widget text;
   final Function() onTap;
 
   const CatEvent({
@@ -24,7 +24,7 @@ class CatEvent extends StatelessWidget {
             IconButton(
               padding: const EdgeInsets.all(15),
               iconSize: 30,
-              onPressed: () {},
+              onPressed: null,
               icon: icon,
               // style: ButtonStyle(
               //   shape: MaterialStateProperty.all(const CircleBorder()),
@@ -38,7 +38,7 @@ class CatEvent extends StatelessWidget {
                 backgroundColor: MyColor.primary,
               ),
             ),
-            Text(text),
+            text,
           ],
         ),
       ),

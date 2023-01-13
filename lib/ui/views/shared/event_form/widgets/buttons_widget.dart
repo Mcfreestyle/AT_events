@@ -5,6 +5,7 @@ import 'package:at_events/services/auth_service.dart';
 import 'package:at_events/services/category_service.dart';
 import 'package:at_events/services/event_service.dart';
 import 'package:at_events/ui/widgets/button_widget.dart';
+import 'package:at_events/utils/snack_bar_msg.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -61,7 +62,8 @@ class CreateButton extends StatelessWidget {
               );
               await storageImage.uploadEventImageStorage();
               await eventService.createEvent(event);
-              storageImage.cleanImage();
+              SnackBarMsg.appearSnackBar('Evento creado satisfactoriamente');
+              // storageImage.cleanImage();
             }
           : null,
     );
@@ -130,7 +132,9 @@ class UpdateButton extends StatelessWidget {
                 await storageImage.uploadEventImageStorage();
               }
               await eventService.updateEvent(updatedEvent);
-              storageImage.cleanImage();
+              SnackBarMsg.appearSnackBar(
+                  'Evento actualizado satisfactoriamente');
+              // storageImage.cleanImage();
             }
           : null,
     );

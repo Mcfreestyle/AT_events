@@ -3,11 +3,8 @@ import 'package:at_events/routes/route.dart';
 import 'package:at_events/services/auth_service.dart';
 import 'package:at_events/services/event_service.dart';
 import 'package:at_events/ui/theme/colors.dart';
-import 'package:at_events/ui/views/calendar/details_event.dart';
 import 'package:at_events/ui/views/calendar/widgets/card_event_widget.dart.dart';
 import 'package:at_events/ui/widgets/floating_button_widget.dart';
-import 'package:calendar_timeline/calendar_timeline.dart';
-import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_timeline_calendar/timeline/model/calendar_options.dart';
 import 'package:flutter_timeline_calendar/timeline/model/datetime.dart';
@@ -28,6 +25,7 @@ class EventCalendarView extends StatefulWidget {
 class _EventCalendarView extends State<EventCalendarView> {
   @override
   Widget build(BuildContext context) {
+    print('building EventCalendarView');
     final eventService = context.watch<EventService>();
     final authService = context.read<AuthService>();
     final myEvents = eventService.getMyEvents(authService.user.id!);
@@ -44,20 +42,12 @@ class _EventCalendarView extends State<EventCalendarView> {
         ),
         actions: [
           FloatingButtonWidget(
+            type: 'secondary',
             icon: const Icon(Icons.search),
             onPressed: () {},
           ),
         ],
       ),
-      // floatingActionButton: SizedBox(
-      //   height: 150,
-      //   width: 45,
-      //   child: FloatingActionButton(
-      //     backgroundColor: MyColor.primary,
-      //     onPressed: () => setState(() => _resetSelectedDate()),
-      //     child: const Text('Hoy'),
-      //   ),
-      // ),
       body: ListView(
         children: [
           Container(
@@ -113,7 +103,7 @@ class _EventCalendarView extends State<EventCalendarView> {
                     ),
                     //
                     SizedBox(
-                      height: 240,
+                      height: 250,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: myEvents.length,
@@ -153,6 +143,7 @@ class MarkedEvents extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('building MarkedEvents');
     final eventService = context.watch<EventService>();
     final List<Event> myAttendances = eventService.eventsAttendancesOfUser;
     final List<Event> myInterests = eventService.eventsInterestsOfUser;
@@ -163,7 +154,7 @@ class MarkedEvents extends StatelessWidget {
 
     return (myMarkedEvents.isNotEmpty)
         ? SizedBox(
-            height: 240,
+            height: 250,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: myMarkedEvents.length,
@@ -210,7 +201,8 @@ class _SelectedDayEventsState extends State<SelectedDayEvents> {
 
   @override
   Widget build(BuildContext context) {
-    final eventService = context.read<EventService>();
+    print('building SelectedDayEvents');
+    final eventService = context.watch<EventService>();
     final eventsByDate =
         eventService.showEventsByDay(_selectedDate!.toDateTime());
     eventsByDate.sort(((a, b) => a.date!.compareTo(b.date!)));
@@ -218,37 +210,6 @@ class _SelectedDayEventsState extends State<SelectedDayEvents> {
 
     return Column(
       children: [
-        // CalendarTimeline(
-        //   showYears: false,
-        //   initialDate: _selectedDate,
-        //   firstDate: DateTime.now(),
-        //   lastDate: DateTime.now().add(const Duration(days: 365 * 4)),
-        //   onDateSelected: (date) => setState(
-        //     () => _selectedDate = date,
-        //   ),
-        //   leftMargin: 15,
-        //   monthColor: Colors.black,
-        //   dayColor: Colors.black,
-        //   dayNameColor: Colors.white,
-        //   activeDayColor: Colors.white,
-        //   activeBackgroundDayColor: MyColor.primary,
-        //   dotsColor: const Color(0xFF333A47),
-        //   locale: 'es',
-        // ),
-        // DatePicker(
-        //   DateTime.now(),
-        //   width: 60,
-        //   height: 80,
-        //   initialSelectedDate: _selectedDate,
-        //   selectionColor: MyColor.primary,
-        //   selectedTextColor: Colors.white,
-        //   onDateChange: (date) {
-        //     setState(() {
-        //       _selectedDate = date;
-        //     });
-        //   },
-        //   locale: 'es',
-        // ),
         TimelineCalendar(
           dateTime: _selectedDate,
           calendarType: CalendarType.GREGORIAN,
@@ -303,7 +264,7 @@ class _SelectedDayEventsState extends State<SelectedDayEvents> {
               //tarjeta de eventos
               (eventsByDate.isNotEmpty)
                   ? SizedBox(
-                      height: 240,
+                      height: 250,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: eventsByDate.length,

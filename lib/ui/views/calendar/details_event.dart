@@ -11,6 +11,7 @@ class DetailsEvent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('building DetailsEvent');
     final eventService = context.watch<EventService>();
     final event = eventService.selectedEvent;
     final args = (ModalRoute.of(context)!.settings.arguments ?? false) as bool;

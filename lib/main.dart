@@ -1,4 +1,5 @@
 import 'package:at_events/services/auth_service.dart';
+import 'package:at_events/ui/theme/colors.dart';
 import 'package:at_events/utils/snack_bar_msg.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -44,10 +45,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       scaffoldMessengerKey: SnackBarMsg.msgKey,
       title: 'Flutter Demo',
-      /*theme: ThemeData(
-        useMaterial3: true,
-        primarySwatch: Colors.blue,
-      ),*/
+      theme: ThemeData(
+        // useMaterial3: true,
+        primarySwatch: Colors.pink,
+      ),
       // onGenerateRoute: MyRoutes.generateRoute,
       initialRoute: MyRoutes.rVERIFY,
       routes: MyRoutes.routes,

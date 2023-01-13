@@ -60,7 +60,7 @@ class SearchView extends StatelessWidget {
             title: event.name!,
             date: event.date!,
             place: event.place!,
-            h4: '95 interesados',
+            interested: event.interested!,
             uint8Image: event.uint8Image!,
             onTap: () {
               eventService.selectedEvent = event;

@@ -154,7 +154,7 @@ class ProfileView extends StatelessWidget {
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15)),
-                            width: 100,
+                            width: 120,
                             height: 30,
                             child: TextButton(
                               style: TextButton.styleFrom(
@@ -236,7 +236,7 @@ class ProfileView extends StatelessWidget {
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15)),
-                            width: 100,
+                            width: 120,
                             height: 30,
                             child: TextButton(
                               style: TextButton.styleFrom(

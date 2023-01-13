@@ -8,7 +8,7 @@ class CardEvent extends StatelessWidget {
   final String title;
   final DateTime date;
   final String place;
-  final String h4;
+  final int interested;
   final Uint8List uint8Image;
   final Function() onTap;
 
@@ -17,7 +17,7 @@ class CardEvent extends StatelessWidget {
     required this.title,
     required this.date,
     required this.place,
-    required this.h4,
+    required this.interested,
     required this.uint8Image,
     required this.onTap,
   });
@@ -93,7 +93,7 @@ class CardEvent extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            h4,
+                            '${interested.toString()} interesados',
                             style: TextStyle(
                               color: MyColor.secondary,
                               fontSize: 12.0,

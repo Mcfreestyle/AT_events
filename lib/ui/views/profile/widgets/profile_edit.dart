@@ -4,6 +4,7 @@ import 'package:at_events/providers/storage_provider.dart';
 import 'package:at_events/services/auth_service.dart';
 import 'package:at_events/ui/theme/colors.dart';
 import 'package:at_events/ui/widgets/button_widget.dart';
+import 'package:at_events/utils/snack_bar_msg.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -155,6 +156,8 @@ class ProfileFormView extends StatelessWidget {
                         await storageImage.uploadUserImageStorage();
                       }
                       await authService.updateUser();
+                      SnackBarMsg.appearSnackBar(
+                          'Perfil actualizado satisfactoriamente');
                       storageImage.cleanImage();
                     },
                   ),

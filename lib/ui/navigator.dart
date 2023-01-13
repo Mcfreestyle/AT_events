@@ -59,48 +59,46 @@ class _MyNavigatorState extends State<MyNavigator>
     Color selectedColor = MyColor.primary;
     Color unselectedColor = MyColor.secondary;
 
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: BottomBar(
-          barColor: MyColor.terciary,
-          borderRadius: BorderRadius.circular(500),
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.decelerate,
-          width: MediaQuery.of(context).size.width * 0.8,
-          start: 2,
-          end: 0,
-          bottom: 10,
-          alignment: Alignment.bottomCenter,
-          child: TabBar(
-            indicatorColor: Colors.white,
-            indicatorPadding: const EdgeInsets.fromLTRB(6, 0, 6, 0),
-            controller: tabController,
-            tabs: [
-              TabsIcon(
-                icons: Icons.home_filled,
-                color: currentPage == 0 ? selectedColor : unselectedColor,
-              ),
-              TabsIcon(
-                icons: Icons.event,
-                color: currentPage == 1 ? selectedColor : unselectedColor,
-              ),
-              TabsIcon(
-                icons: Icons.explore,
-                color: currentPage == 2 ? selectedColor : unselectedColor,
-              ),
-              TabsIcon(
-                icons: Icons.person,
-                color: currentPage == 3 ? selectedColor : unselectedColor,
-              ),
-            ],
-          ),
-          body: (context, controller) => TabBarView(
-            controller: tabController,
-            dragStartBehavior: DragStartBehavior.down,
-            physics: const BouncingScrollPhysics(),
-            children: _widgetOptions,
-          ),
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: BottomBar(
+        barColor: MyColor.terciary,
+        borderRadius: BorderRadius.circular(500),
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.decelerate,
+        width: MediaQuery.of(context).size.width * 0.8,
+        start: 2,
+        end: 0,
+        bottom: 10,
+        alignment: Alignment.bottomCenter,
+        child: TabBar(
+          indicatorColor: Colors.white,
+          indicatorPadding: const EdgeInsets.fromLTRB(6, 0, 6, 0),
+          controller: tabController,
+          tabs: [
+            TabsIcon(
+              icons: Icons.home_filled,
+              color: currentPage == 0 ? selectedColor : unselectedColor,
+            ),
+            TabsIcon(
+              icons: Icons.event,
+              color: currentPage == 1 ? selectedColor : unselectedColor,
+            ),
+            TabsIcon(
+              icons: Icons.explore,
+              color: currentPage == 2 ? selectedColor : unselectedColor,
+            ),
+            TabsIcon(
+              icons: Icons.person,
+              color: currentPage == 3 ? selectedColor : unselectedColor,
+            ),
+          ],
+        ),
+        body: (context, controller) => TabBarView(
+          controller: tabController,
+          dragStartBehavior: DragStartBehavior.down,
+          physics: const BouncingScrollPhysics(),
+          children: _widgetOptions,
         ),
       ),
     );

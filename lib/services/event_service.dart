@@ -97,6 +97,8 @@ class EventService extends ChangeNotifier {
     final url = Uri.parse(
         '$baseURL/rest/v1/categories?id=eq.$categoryId&select=events(*)');
     final response = await http.get(url, headers: headers);
+    print(
+        'response of GET /rest/v1/categories?id=eq.$categoryId&select=events(*): ${response.body}');
     final List<dynamic> eventsList = json.decode(response.body)[0]['events'];
 
     eventsByCategory.clear();
@@ -198,9 +200,23 @@ class EventService extends ChangeNotifier {
     print(
         'status code of PATCH in /rest/v1/events?id=eq.${event.id}: ${response.statusCode}');
 
-    final index = events.indexWhere((element) => element.id == event.id);
-    events[index] = event;
+    final eventIndex = events.indexWhere((element) => element.id == event.id);
+    events[eventIndex] = event;
     selectedEvent = event;
+
+    //
+    final attendancesIndex =
+        eventsAttendancesOfUser.indexWhere((element) => element.id == event.id);
+    if (attendancesIndex != -1) {
+      eventsAttendancesOfUser[attendancesIndex] = event;
+    }
+
+    //
+    final interestsIndex =
+        eventsInterestsOfUser.indexWhere((element) => element.id == event.id);
+    if (interestsIndex != -1) {
+      eventsInterestsOfUser[interestsIndex] = event;
+    }
 
     notifyListeners();
   }

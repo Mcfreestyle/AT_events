@@ -63,11 +63,23 @@ class CardEventCalendar extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(event.name!,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 17)),
+                      Text(
+                        event.name!,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: false,
+                      ),
                       Text(dateOrHour),
-                      Text(event.place!)
+                      Text(
+                        event.place!,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: false,
+                      )
                     ],
                   ),
                 )

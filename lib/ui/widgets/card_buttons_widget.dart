@@ -26,7 +26,7 @@ class InterestButton extends StatelessWidget {
       label: const Text('Me interesa'),
       style: ElevatedButton.styleFrom(
         backgroundColor: isInterested ? MyColor.primary : MyColor.secondary,
-        fixedSize: const Size(140, 35),
+        fixedSize: const Size(150, 35),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
       onPressed: () async {
@@ -59,7 +59,7 @@ class AttendanceButton extends StatelessWidget {
       label: const Text('Asistiré'),
       style: ElevatedButton.styleFrom(
         backgroundColor: isAssistant ? MyColor.primary : MyColor.secondary,
-        fixedSize: const Size(140, 35),
+        fixedSize: const Size(150, 35),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
       onPressed: () async {

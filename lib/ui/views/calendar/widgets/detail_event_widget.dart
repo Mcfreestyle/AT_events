@@ -24,39 +24,56 @@ class DetailEventWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('building DetailEventWidget');
     final authService = context.read<AuthService>();
     final userId = authService.user.id;
 
     return Container(
       child: Column(
         children: [
-          Container(
-            height: 180.0,
-            // child: Ink.image(
-            //   image: NetworkImage('$imageEvent'),
-            //   fit: BoxFit.cover,
-            // ),
-            child: SizedBox(
-              width: double.infinity,
-              height: 200,
-              child: Image.memory(
-                Uint8List.fromList(event.uint8Image!),
-                fit: BoxFit.cover,
+          Stack(
+            children: [
+              SizedBox(
+                width: double.infinity,
+                height: 200,
+                child: Image.memory(
+                  Uint8List.fromList(event.uint8Image!),
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
+              Positioned(
+                top: 10,
+                right: 0,
+                child: Container(
+                  width: 80,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: MyColor.primary,
+                    borderRadius: const BorderRadius.horizontal(
+                      left: Radius.circular(10),
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      (event.price != 0.0) ? event.price.toString() : 'LIBRE',
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              )
+            ],
           ),
           Container(
               padding: EdgeInsets.all(18.0),
               alignment: Alignment.centerLeft,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    child: Row(
-                      children: [
-                        Text(event.name!,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 17))
-                      ],
+                  Text(
+                    event.name!,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17,
                     ),
                   ),
                   const SizedBox(
@@ -65,7 +82,8 @@ class DetailEventWidget extends StatelessWidget {
                   Container(
                     child: Row(
                       children: [
-                        Icon(Icons.access_time, size: 17),
+                        const Icon(Icons.access_time, size: 17),
+                        const SizedBox(width: 5),
                         Text(
                           DateFormat('E, d MMM yyyy h:mm a')
                               .format(event.date!),
@@ -104,7 +122,8 @@ class DetailEventWidget extends StatelessWidget {
                   Container(
                     child: Row(
                       children: [
-                        Icon(Icons.location_on_outlined, size: 18),
+                        const Icon(Icons.location_on_outlined, size: 18),
+                        const SizedBox(width: 5),
                         Text(
                           event.place!,
                           style: TextStyle(fontSize: 12),
@@ -132,6 +151,7 @@ class DetailEventWidget extends StatelessWidget {
                     child: Row(
                       children: [
                         const Icon(Icons.people_alt_outlined, size: 18),
+                        const SizedBox(width: 5),
                         EventAttendancesAndInterests(event: event)
                       ],
                     ),
@@ -150,55 +170,49 @@ class DetailEventWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
-                    child: Text(
-                      event.description!,
-                      // 'To switch to a new route, use the Navigator.push() method. The push() method adds a Route to the stack of routes managed by the Navigator. Where does the Route come from? You can create your own, or use a MaterialPageRoute, which is useful because it transitions to the new route using a platform-specific animation.',
-                      style: TextStyle(fontSize: 12),
-                    ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    event.description!,
+                    style: const TextStyle(fontSize: 12),
                   ),
                   const SizedBox(
                     height: 14,
                   ),
+                  // Container(
+                  //   child: Row(
+                  //     children: const [
+                  //       Text(
+                  //         'Contacto',
+                  //         style: TextStyle(
+                  //             fontSize: 16, fontWeight: FontWeight.bold),
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
+                  // Card(
+                  //   elevation: 0,
+                  //   color: Colors.white,
+                  //   child: ListTile(
+                  //     title: Text(
+                  //       'FOO',
+                  //       style: TextStyle(fontSize: 13),
+                  //     ),
+                  //     leading: CircleAvatar(
+                  //         backgroundImage: NetworkImage(
+                  //             'https://cdn.pixabay.com/photo/2021/10/27/13/15/cat-6747298_960_720.jpg')),
+                  //     subtitle: Text('FOO'),
+                  //   ),
+                  // ),
                   Container(
                     child: Row(
-                      children: const [
-                        Text(
-                          'Contacto',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        )
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        InterestButton(event: event),
+                        AttendanceButton(event: event),
                       ],
                     ),
-                  ),
-                  Card(
-                    elevation: 0,
-                    color: Colors.white,
-                    child: ListTile(
-                      title: Text(
-                        'FOO',
-                        style: TextStyle(fontSize: 13),
-                      ),
-                      leading: CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              'https://cdn.pixabay.com/photo/2021/10/27/13/15/cat-6747298_960_720.jpg')),
-                      subtitle: Text('FOO'),
-                    ),
-                  ),
-                  Container(
-                    child: Row(children: [
-                      Container(
-                          height: 30,
-                          width: 140,
-                          child: InterestButton(event: event)),
-                      const SizedBox(
-                        width: 60,
-                      ),
-                      Container(
-                          height: 30,
-                          width: 120,
-                          child: AttendanceButton(event: event)),
-                    ]),
                   )
                 ],
               )),

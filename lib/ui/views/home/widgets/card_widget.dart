@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:at_events/models/event_model.dart';
-import 'package:at_events/services/auth_service.dart';
 import 'package:at_events/services/event_service.dart';
 import 'package:at_events/ui/widgets/card_buttons_widget.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +22,6 @@ class HomeEventsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('building HomeEventCard');
-    // final eventService = context.read<EventService>();
-    // final authService = context.read<AuthService>();
 
     return InkWell(
       onTap: onTap,
@@ -39,15 +36,6 @@ class HomeEventsCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: Column(
               children: [
-                // FadeInImage(
-                //   placeholder: const AssetImage('assets/gifs/loading.gif'),
-                //   image: Image.memory(
-                //       Uint8List.fromList(image),
-                //     ),
-                //   fit: BoxFit.cover,
-                //   width: double.infinity,
-                //   height: 200,
-                // ),
                 SizedBox(
                   width: double.infinity,
                   height: 200,

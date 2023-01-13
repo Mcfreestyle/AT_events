@@ -2,6 +2,7 @@ import 'package:at_events/models/event_model.dart';
 import 'package:at_events/providers/storage_provider.dart';
 import 'package:at_events/routes/route.dart';
 import 'package:at_events/services/auth_service.dart';
+import 'package:at_events/services/category_service.dart';
 import 'package:at_events/ui/widgets/floating_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,55 +29,56 @@ class HomeView extends StatelessWidget {
         backgroundColor: Colors.white,
         actions: [
           FloatingButtonWidget(
+            type: 'secondary',
             icon: const Icon(Icons.search),
             onPressed: () {},
           ),
           const SizedBox(
             width: 5,
           ),
-          FloatingActionButton(
-            heroTag: 'btn2',
+          FloatingButtonWidget(
+            icon: const Icon(Icons.add),
             onPressed: () {
+              // final now = DateTime.now();
+              // print('zonetime: ${now.timeZoneName}');
+              // print('datetime of now: ${now.toLocal()}');
               final storageImage = context.read<StorageImageProvider>();
               storageImage.cleanImage();
               Navigator.pushNamed(context, MyRoutes.rEVENTFORM);
             },
-            backgroundColor: MyColor.primary,
-            mini: true,
-            child: const Icon(
-              Icons.add,
-            ),
           ),
           const SizedBox(
             width: 10,
           )
         ],
       ),
-      body: const BodyWidget(),
+      body: const HomeViewBody(),
     );
   }
 }
 
-class BodyWidget extends StatefulWidget {
-  const BodyWidget({super.key});
+class HomeViewBody extends StatefulWidget {
+  const HomeViewBody({super.key});
 
   @override
-  State<BodyWidget> createState() => _BodyWidgetState();
+  State<HomeViewBody> createState() => _HomeViewBodyState();
 }
 
-class _BodyWidgetState extends State<BodyWidget> {
+class _HomeViewBodyState extends State<HomeViewBody> {
   bool isLoading = false;
+  bool obtainedEvents = false;
 
-  Future getEvents(EventService eventService, AuthService authService) async {
+  Future getData(EventService eventService, CategoryService categoryService,
+      AuthService authService) async {
     setState(() {
       isLoading = true;
     });
-    // eventService.events.clear();
-    // print('events after clearing: ${eventService.events.toString()}');
-    await eventService.getEvents();
+    final events = await eventService.getEvents();
+    if (events.isNotEmpty) obtainedEvents = true;
     await eventService.getEventsAttendancesOfUser(authService.user.id!);
     await eventService.getEventsInterestsOfUser(authService.user.id!);
-    print('events loaded: ${eventService.events.toString()}');
+    await categoryService.getCategories();
+    print('events loaded in getData: ${eventService.events.toString()}');
 
     setState(() {
       isLoading = false;
@@ -89,17 +91,18 @@ class _BodyWidgetState extends State<BodyWidget> {
 
     final authService = context.read<AuthService>();
     final eventService = context.read<EventService>();
+    final categoryService = context.read<CategoryService>();
     final events = eventService.events;
 
-    if (events.isEmpty) {
+    if (events.isEmpty && obtainedEvents == false) {
       print('events is empty');
-      getEvents(eventService, authService);
+      getData(eventService, categoryService, authService);
     }
 
     if (!isLoading) {
       return RefreshIndicator(
         onRefresh: () async {
-          await getEvents(eventService, authService);
+          await getData(eventService, categoryService, authService);
         },
         child: Padding(
           padding: const EdgeInsets.only(bottom: 60),
